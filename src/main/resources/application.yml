@@ -1,0 +1,34 @@
+spring:
+  application:
+    name: ticket-booking-api
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://${DATABASE_HOST:localhost}:${DATABASE_PORT:5432}/${DATABASE_NAME:tickets}}
+    username: ${DATABASE_USERNAME:tickets}
+    password: ${DATABASE_PASSWORD:tickets}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+  mvc:
+    problemdetails:
+      enabled: true
+
+booking:
+  # How long a reservation keeps its seats before it must be confirmed.
+  hold-duration: PT10M
+  expiry-job:
+    enabled: true
+    interval: PT30S
+
+server:
+  port: ${PORT:8080}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html

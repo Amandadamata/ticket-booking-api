@@ -1,0 +1,7 @@
+booking:
+  hold-duration: PT10M
+  expiry-job:
+    enabled: false
+logging:
+  level:
+    org.hibernate.engine.jdbc.spi.SqlExceptionHelper: "off"

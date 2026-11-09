@@ -1,0 +1,24 @@
+# Render Blueprint: one web service built from the Dockerfile and one PostgreSQL database.
+# Free instances sleep when idle, and a free database is deleted after 30 days.
+services:
+  - type: web
+    name: ticket-booking-api
+    runtime: docker
+    plan: free
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: DATABASE_HOST
+        fromDatabase: { name: ticket-booking-db, property: host }
+      - key: DATABASE_PORT
+        fromDatabase: { name: ticket-booking-db, property: port }
+      - key: DATABASE_NAME
+        fromDatabase: { name: ticket-booking-db, property: database }
+      - key: DATABASE_USERNAME
+        fromDatabase: { name: ticket-booking-db, property: user }
+      - key: DATABASE_PASSWORD
+        fromDatabase: { name: ticket-booking-db, property: password }
+
+databases:
+  - name: ticket-booking-db
+    plan: free
+    postgresMajorVersion: "18"
